@@ -1,4 +1,3 @@
-
 # 1. Information Gathering.
 
 Information gathering is nothing but gathering information about our target either by active of passive recon.
@@ -70,4 +69,58 @@ Information gathering is nothing but gathering information about our target eith
     
     **Practical:**
     
-    1. [dnsdumpster.com](http://dnsdumpster.com) → used for bug bounty too. It gives the well structured results and its really helpful.
+    1. [dnsdumpster.com](http://dnsdumpster.com) → used for bug bounty too. It gives the well structured results and its really helpful. 
+    2. Tool: `dnsrecon`  
+    
+    ```bash
+    dnsrecon -d <domain_name>
+    ```
+    
+
+### Identifying the Firewall
+
+Detecting web application firewall using `wafw00f`
+
+1. `-l`  will list the firewalls which it scans
+
+```bash
+wafw00f -l -> lists the firewall which it detects 
+
+wafw00f <domain_name>  -> search for few firewalls
+
+wafw00f <domain_name> -a -> scans for all the available firewalls in the list.
+```
+
+### Passive subdomain enumeration.
+
+Tool: Sublist3r → it is basically a python tool which uses OSINT method to enumerate subdomains.
+
+Practical:
+
+1. this scans the search engines which are mentioned.
+    - -e → specify the search engines.
+    - -d → specify the domain
+    - - o → get the output in txt format.
+
+```bash
+sublist3r -d <domain_name> -e google,linkedin,yahoo,bing -o <output_file>.txt
+```
+
+### Google dorks and GHDB
+
+Practical:
+
+| **Filters**  | **Uses** | **Example**  |
+| --- | --- | --- |
+| site | used to specify the site | site:<domain_name> |
+| inurl | to get the word that is present in the url | inurl:admin  |
+| filetype | used to get the specified filetypes only | filetype:pdf |
+| intext | used to check the specified intext keyowrds  | intext:part-time |
+
+### Email harvesting using theHarvester
+
+practical:
+
+1. use the tool called theHarvester to get the email exposed on the internet
+```bash
+$theHarvester -d <domain_name> -b <search_engine1,search_engine2,....>
