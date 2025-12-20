@@ -65,3 +65,52 @@ axfr -> is used to check for zone transfer
 `fierce` 
 
 1. it is a semi-lightweight scanner that helps to locate non-contagious IP space in hostname
+
+   ## Host Discovery with NMAP
+
+Ping scan to check for the host that are running on the target that are currently connected.
+
+1. If connected to the organizations wifi then check your ip address
+
+       -sn ping scan the hosts and not to list the ports and it checks for the devices connected to the network
+
+```bash
+sudo nmap -sn <IP/with_subnet>
+```
+
+1. `netdiscover` tool will resolve IP to the MAC or vice versa
+
+```bash
+netdiscover -i <Interface_name> -r <ip/with_subnet>
+```
+
+## Port scan with nmap
+
+working: In default scan you perform syn scan of 1000 of most frequently used ports
+
+> Windows systems will typically block the ICMP packets so use -Pn while scanning windows machine.
+> 
+- to scan all tcp ports
+
+```bash
+nmap <hostname OR IP>
+```
+
+- to scan specific ports or range of ports
+
+```bash
+nmap -p 80,445,139,22 <IP or HOSTNAME>
+							OR
+nmap -p1-1001 <IP or HOSTNAME>
+```
+
+| **scans**  | **flags** |
+| --- | --- |
+| `-F` | fast scan |
+| `-sU` | UDP scan |
+| `-sV` | Version scan |
+| `-sC`  | Script scan |
+| `-A` | Aggressive scan |
+| `-O`  | operating system scan |
+| `-oN` | normal output |
+| `-oX` | xml output (useful) |
