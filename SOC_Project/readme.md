@@ -34,12 +34,15 @@ Here I will be using VMware to host all the VMs
 ## 1. Linux Server 
 1. depoly vulnerable web applications uing docker
 2. setup port forwarding using nginx
+3. Install wazuh agent (after configuring wazuh dashboard)
 
 ## 2. Windows server
 1. Install AD windows server
 2. create demo users
 3. create different roles for different users
-4. You can host 1 or 2 web servers for practicing 
+4. You can host 1 or 2 web servers for practicing
+5. install sysmom for system logs.
+6. Install wazuh agent (after configuring wazuh dashboard) 
 
 ## 3.Attacker Machine 
 1. This is the kali linux machine which you will be using to attack widnows and linux servers
