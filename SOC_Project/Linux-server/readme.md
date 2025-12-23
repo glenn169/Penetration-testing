@@ -13,7 +13,7 @@ Key objectives of this lab include:
 
 By replicating real deployment patterns rather than simplified lab setups, this project aims to improve practical skills in web application security testing, infrastructure awareness and defensive monitoring.
 
-# How can you do it ?
+# How can I configure it ?
 1. copy the docker-compose.yml file and paste it on your file system, then run `docker compose up -d`
 2. I have added the required files in the respective folders, you can follow the steps provided there
 3. run `docker ps` and you should be able to see the running docker containers
