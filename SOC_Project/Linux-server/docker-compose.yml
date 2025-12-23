@@ -1,0 +1,25 @@
+services:
+  dvwa:
+    image: sagikazarmark/dvwa
+    ports:
+      - "8081:80"
+    restart: unless-stopped
+
+  juice-shop:
+    image: bkimminich/juice-shop
+    ports:
+      - "8082:3000"
+    restart: unless-stopped
+
+  webgoat:
+    image: webgoat/webgoat
+    ports:
+      - "8083:8080"
+      - "9090:9090"
+    restart: unless-stopped
+
+  vulnlab:
+    image: yavuzlar/vulnlab
+    ports:
+      - "8084:80"
+    restart: unless-stopped
