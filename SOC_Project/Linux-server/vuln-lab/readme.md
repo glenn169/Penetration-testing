@@ -5,8 +5,8 @@
 
 
 # Make sure to add this
-1. Paste the given `vuln-lab.conf` file to `/etc/nginx/sites-available/`
+1. Paste the given `vulnbank.lab.conf` file to `/etc/nginx/sites-available/`
 2. ```
-   sudo ln -s /etc/nginx/sites-available/vuln-lab.conf /etc/nginx/sites-enabled/
+   sudo ln -s /etc/nginx/sites-available/vulnbank.lab.conf /etc/nginx/sites-enabled/
    sudo nginx -t
    systemctl reload nginx
