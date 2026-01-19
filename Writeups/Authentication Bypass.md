@@ -1,4 +1,4 @@
-# Methodology
+# **_Authentication Bypass Methodology_**
 
 # 1. Authentication Bypass
 ## Username Enumeration
