@@ -30,3 +30,15 @@ DOM Based XSS is where the JavaScript execution happens directly in the browser 
 
 # Blind XSS
 Blind XSS is similar to a stored XSS in that your payload gets stored on the website for another user to view, but in this instance, you can't see the payload working or be able to test it against yourself first.
+
+You can use "XSS hunter express" to find blind xss vulnerability.
+
+
+# Methodology
+1. Find any input parameters try the basic xss payload `<script>alert('Hacked');</script>`
+2. If first one doesnt work then you can try this `"><script>alert('Hacked');</script>`
+3. Next you can try is to close the existing tag from html code and then add the script eg: `</p><script>alert('THM');</script>` here `</p>` is the paragraph closing tag.
+4. Enter your name into the form, you'll see it reflected on the page. It looks similar to normal input, but upon inspecting the page source, you'll see your name gets reflected in some JavaScript code. To bypass this you need to escape the JS code so we can use the payload `';alert('Hacked');//`
+5. Here is the situation where the webiste filters out the `script` word from the actual script, you can use the payload `<sscriptcript>alert('THM');</sscriptcript>`
+6. When the website request for images, you can either use `<img src=x inload=alert('HTB');>` OR `<Existing_File_Path>/test.jpg"onload="alert('Hacked');`
+7. Use Polygot Pyaload to escape attributes, tags and all filter all in one ``` jaVasCript:/*-/*`/*\`/*'/*"/**/(/* */onerror=alert('THM') )//%0D%0A%0d%0a//</stYle/</titLe/</teXtarEa/</scRipt/--!>\x3csVg/<sVg/oNloAd=alert('THM')//>\x3e ```
