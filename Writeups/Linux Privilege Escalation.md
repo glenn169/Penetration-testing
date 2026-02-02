@@ -47,3 +47,11 @@ Find files:
 - `find / -cmin -60`: find files changed within the last hour (60 minutes)
 - `find / -amin -60`: find files accesses within the last hour (60 minutes)
 - `find / -size 50M`: find files with a 50 MB size
+
+
+# Automated Enumeration tool
+- LinPeas: https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite/tree/master/linPEAS
+- LinEnum: https://github.com/rebootuser/LinEnum
+- LES (Linux Exploit Suggester): https://github.com/mzet-/linux-exploit-suggester
+- Linux Smart Enumeration: https://github.com/diego-treitos/linux-smart-enumeration
+- Linux Priv Checker: https://github.com/linted/linuxprivchecker
