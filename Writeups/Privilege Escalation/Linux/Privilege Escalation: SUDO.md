@@ -34,3 +34,6 @@ We can save this code as shell.c and compile it using gcc into a shared object f
 
 We need to run the program by specifying the LD_PRELOAD option, as follows;
 `sudo LD_PRELOAD=/home/user/ldpreload/shell.so find`
+
+Use this to find how to execute the tools in unprivileged enviornment
+https://gtfobins.org/gtfobins/nmap/
