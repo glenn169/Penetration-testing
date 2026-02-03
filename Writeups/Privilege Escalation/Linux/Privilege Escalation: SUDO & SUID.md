@@ -40,3 +40,6 @@ https://gtfobins.org/gtfobins/nmap/
 
 you can execute `find` commands using 
 `sudo find . -exec /bin/sh \; -quit`
+
+
+# Privilege Escalation: SUID
