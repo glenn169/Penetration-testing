@@ -43,3 +43,7 @@ you can execute `find` commands using
 
 
 # Privilege Escalation: SUID
+`find / -type f -perm -04000 -ls 2>/dev/null` will list files that have SUID or SGID bits set. It will show what code has a special permision. It is denotes as " s " in the permission tab. 
+
+Use jhon the ripper to crack the hash from `/etc/shadow` it uses the format `sha512crypt`
+`john --format=sha512crypt /<wordlist> /hash.txt`
