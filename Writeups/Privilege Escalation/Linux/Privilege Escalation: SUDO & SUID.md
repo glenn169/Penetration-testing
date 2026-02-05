@@ -54,3 +54,17 @@ System administrators can use to increase the privilege level of a process or bi
 
 We can use `getcap` tool to list all the enabled capabilities.
 When run as an unprivileged user,` getcap -r /` will generate a huge amount of errors, so it is good practice to redirect the error messages to `/dev/null` using `getcap -r / 2>/dev/null`.
+
+`./vim -c ':py3 import os; os.setuid(0); os.execl("/bin/sh", "sh", "-c", "reset; exec sh")'` you can use this command to escalate the privilege from user to root.
+
+
+# Privilege Escalation: CRON JOBs
+Cron jobs are used to run scripts or binaries at specific times. By default, they run with the privilege of their owners and not the current user. While properly configured cron jobs are not inherently vulnerable, they can provide a privilege escalation vector under some conditions. The idea is quite simple; if there is a scheduled task that runs with root privileges and we can change the script that will be run, then our script will run with root privileges.
+
+Cron job configurations are stored as crontabs (cron tables) to see the next time and date the task will run.
+
+Each user on the system have their crontab file and can run specific tasks whether they are logged in or not. As you can expect, our goal will be to find a cron job set by root and have it run our script, ideally a shell.
+
+Any user can read the file keeping system-wide cron jobs under `/etc/crontab`
+
+If any file will run using the cron tab then you will see it starting with the ( ******* ) line 
