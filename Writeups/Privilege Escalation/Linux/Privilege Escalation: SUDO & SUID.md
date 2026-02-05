@@ -88,3 +88,5 @@ If a folder for which your user has write permission is located in the path, you
 5. Then export the file to the `$PATH` so that you are allowed to execute it `export PATH=/path/to/file_directory:$PATH`
 6. Run the <exec_file>
 
+
+# Privilege Escalation: NSF(Network File System)
