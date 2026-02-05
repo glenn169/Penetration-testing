@@ -47,3 +47,10 @@ you can execute `find` commands using
 
 Use jhon the ripper to crack the hash from `/etc/shadow` it uses the format `sha512crypt`
 `john --format=sha512crypt /<wordlist> /hash.txt`
+
+
+# Privilege Escalarion: Capabilities
+System administrators can use to increase the privilege level of a process or binary is “Capabilities”. Capabilities help manage privileges at a more granular level. if the SOC analyst needs to use a tool that needs to initiate socket connections, a regular user would not be able to do that. If the system administrator does not want to give this user higher privileges, they can change the capabilities of the binary. As a result, the binary would get through its task without needing a higher privilege user.
+
+We can use `getcap` tool to list all the enabled capabilities.
+When run as an unprivileged user,` getcap -r /` will generate a huge amount of errors, so it is good practice to redirect the error messages to `/dev/null` using `getcap -r / 2>/dev/null`.
