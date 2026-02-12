@@ -28,3 +28,21 @@ save it to a .php file and upload it.
 _Reverse Shell_
 1. go to https://raw.githubusercontent.com/pentestmonkey/php-reverse-shell/master/php-reverse-shell.php and copy the code and replace with `attacker_ip` and `Listerner_port` and save it to a .php file
 2. Go to the uploaded folder or try to access the file while keeping the netcat listerner enabled `nc -lvnp <port_number>`
+
+# Filtering 
+Client-side filters: Basically filters the file brefore it is uploaded to the server. It takes place in the client side
+Server-side filters: These filters are on the server side, since the code is not visible, it is difficult to bypass the server-side filters completly.
+
+### Extension Validation
+File extensions are used (in theory) to identify the contents of a file. In practice they are very easy to change, so actually don't mean much; however, MS Windows still uses them to identify file types, although Unix based systems tend to rely on other methods, which we'll cover in a bit. Filters that check for extensions work in one of two ways. They either blacklist extensions (i.e. have a list of extensions which are not allowed) or they whitelist extensions (i.e. have a list of extensions which are allowed, and reject everything else)
+
+### File Type Filtering 
+Similar to Extension validation, but more intensive, file type filtering looks, once again, to verify that the contents of a file are acceptable to upload. We'll be looking at two types of file type validation:
+
+_MIME validation:_ MIME (Multipurpose Internet Mail Extension) types are used as an identifier for files -- originally when transfered as attachments over email, but now also when files are being transferred over HTTP(S). The MIME type for a file upload is attached in the header of the request, and looks something like this:
+<img width="762" height="216" alt="image" src="https://github.com/user-attachments/assets/659675f3-8c2e-4dc3-aaa7-33b871395071" />
+_Magic Number validation:_ Magic numbers are the more accurate way of determining the contents of a file; although, they are by no means impossible to fake. The "magic number" of a file is a string of bytes at the very beginning of the file content which identify the content. For example, a PNG file would have these bytes at the very top of the file: `89 50 4E 47 0D 0A 1A 0A`.
+
+_- File Length Filtering_
+_- File Name Filtering_
+_- File Content Filtering_
