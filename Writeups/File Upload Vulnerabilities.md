@@ -133,3 +133,20 @@ When we try to upload our file we get a success message. Navigating to the /uplo
 when we click on the file, by enabling the reverse listner, we will get the reverse shell 
 
 This is by no means an exhaustive list of upload vulnerabilities related to file extensions. As with everything in hacking, we are looking to exploit flaws in code that others have written; this code may very well be uniquely written for the task at hand. This is the really important point to take away from this task: there are a million different ways to implement the same feature when it comes to programming -- your exploitation must be tailored to the filter at hand. The key to bypassing any kind of server side filter is to enumerate and see what is allowed, as well as what is blocked; then try to craft a payload which can pass the criteria the filter is looking for.
+
+# Bypassing Server-side Filtering: Magic Numbers
+Magic numbers are used as a more accurate identifier of files. The magic number of a file is a string of hex digits, and is always the very first thing in a file. Knowing this, it's possible to use magic numbers to validate file uploads, simply by reading those first few bytes and comparing them against either a whitelist or a blacklist. Bear in mind that this technique can be very effective against a PHP based webserver
+
+
+- As expected, if we upload our standard shell.php file, we get an error; however, if we upload a JPEG, the website is fine with it. All running as per expected so far.
+- From the previous attempt at an upload, we know that JPEG files are accepted, so let's try adding the JPEG magic number to the top of our shell.php file. A quick look at the list of file signatures on Wikipedia shows us that there are several possible magic numbers of JPEG files. It shouldn't matter which we use here, so let's just pick one (FF D8 FF DB). We could add the ASCII representation of these digits (ÿØÿÛ) directly to the top of the file but it's often easier to work directly with the hexadecimal representation, so let's cover that method.
+- Before we get started, let's use the Linux `file` command to check the file type of our shell
+- We can see that the magic number we've chosen is four bytes long, so let's open up the `reverse_shell.php` script and add four random characters on the first line. These characters do not matter, so for this example we'll just use four "A"s
+- Save the file and exit. Next we're going to reopen the file in hexeditor (which comes by default on Kali), or any other tool which allows you to see and edit the shell as hex. In hexeditor the file looks like this
+  <img width="718" height="82" alt="image" src="https://github.com/user-attachments/assets/5e9d7835-f266-40e4-92ca-dbb4cccbc386" />
+- **Note** the four bytes in the red box: they are all 41, which is the hex code for a capital "A" -- exactly what we added at the top of the file previously.
+- Change this to the magic number we found earlier for JPEG files: `FF D8 FF DB`
+- Perfect. Now let's try uploading the modified shell and see if it bypasses the filter!
+
+
+
