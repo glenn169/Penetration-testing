@@ -81,4 +81,55 @@ We've already bypassed this filter by intercepting and removing it prior to the 
    <img width="587" height="225" alt="image" src="https://github.com/user-attachments/assets/e288c0cd-78c8-4627-8a76-166576215bc5" />
 4. Now, when we navigate to http://demo.uploadvulns.thm/uploads/shell.php having set up a netcat listener, we receive a connection from the shell! 
 
+# Bypassing Server-side Filtering: File Extensions
+For the first part of this task we'll take a look at a website that's using a blacklist for file extensions as a server side filter. There are a variety of different ways that this could be coded, and the bypass we use is dependent on that. In the real world we wouldn't be able to see the code for this, but for this example, it will be included here:
+``` php
+<?php
+    //Get the extension
+    $extension = pathinfo($_FILES["fileToUpload"]["name"])["extension"];
+    //Check the extension against the blacklist -- .php and .phtml
+    switch($extension){
+        case "php":
+        case "phtml":
+        case NULL:
+            $uploadFail = True;
+            break;
+        default:
+            $uploadFail = False;
+    }
+?>
+```
+In this instance, the code is looking for the last period (.) in the file name and uses that to confirm the extension, so that is what we'll be trying to bypass here.
 
+We can see that the code is filtering out the .php and .phtml extensions, so if we want to upload a PHP script we're going to have to find another extension. The wikipedia page for PHP gives us a few common extensions that we can try; however, there are actually a variety of other more rarely used extensions available that webservers may nonetheless still recognise. These include: `.php3`, `.php4`, `.php5`, `.php7`, `.phps`, `.php-s`, `.pht` and `.phar`. Many of these bypass the filter (which only blocks`.php` and `.phtml`), but it appears that the server is configured not to recognise them as PHP files, as in the below example:
+<img width="805" height="329" alt="image" src="https://github.com/user-attachments/assets/16b29e11-b719-43cd-99f9-839a51f7af2c" />
+This is actually the default for Apache2 servers, at the time of writing; however, the sysadmin may have changed the default configuration (or the server may be out of date), so it's well worth trying.
+
+Eventually we find that the .phar extension bypasses the filter and works thus giving us our shell:
+<img width="1041" height="630" alt="image" src="https://github.com/user-attachments/assets/c234f4e2-14bc-4e7e-87b7-516e4885ae94" />
+
+## Black-Box testing for file extension filter
+Let's have a look at another example, with a different filter. This time we'll do it completely black-box: i.e. without the source code.
+Once again, we have our upload form:
+<img width="476" height="278" alt="image" src="https://github.com/user-attachments/assets/734c01da-8ec9-4f00-ae63-77b7f3c685c9" />
+Ok, we'll start by scoping this out with a completely legitimate upload. Let's try uploading the spaniel.jpg image from before:
+<img width="562" height="292" alt="image" src="https://github.com/user-attachments/assets/e1a4a0a3-c55d-432b-bb37-98057b16bef2" />
+Well, that tells us that JPEGS are accepted at least. Let's go for one that we can be pretty sure will be rejected (`shell.php`):
+<img width="572" height="314" alt="image" src="https://github.com/user-attachments/assets/3764b947-7968-4cf5-b4c2-cb912bc1ca4e" />
+In the previous example we saw that the code was using the `pathinfo()` PHP function to get the last few characters after the `.`, but what happens if it filters the input slightly differently?
+Let's try uploading a file called `shell.jpg.php`. We already know that `JPEG` files are accepted, so what if the filter is just checking to see if the `.jpg` file extension is somewhere within the input?
+
+Pseudocode for this kind of filter may look something like this:
+```
+ACCEPT FILE FROM THE USER -- SAVE FILENAME IN VARIABLE userInput
+IF STRING ".jpg" IS IN VARIABLE userInput:
+    SAVE THE FILE
+ELSE:
+    RETURN ERROR MESSAGE
+```
+
+
+When we try to upload our file we get a success message. Navigating to the /uploads directory confirms that the payload was successfully uploaded:
+when we click on the file, by enabling the reverse listner, we will get the reverse shell 
+
+This is by no means an exhaustive list of upload vulnerabilities related to file extensions. As with everything in hacking, we are looking to exploit flaws in code that others have written; this code may very well be uniquely written for the task at hand. This is the really important point to take away from this task: there are a million different ways to implement the same feature when it comes to programming -- your exploitation must be tailored to the filter at hand. The key to bypassing any kind of server side filter is to enumerate and see what is allowed, as well as what is blocked; then try to craft a payload which can pass the criteria the filter is looking for.
