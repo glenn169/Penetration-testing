@@ -145,7 +145,7 @@ Magic numbers are used as a more accurate identifier of files. The magic number 
 - Save the file and exit. Next we're going to reopen the file in hexeditor (which comes by default on Kali), or any other tool which allows you to see and edit the shell as hex. In hexeditor the file looks like this
   <img width="718" height="82" alt="image" src="https://github.com/user-attachments/assets/5e9d7835-f266-40e4-92ca-dbb4cccbc386" />
 - **Note** the four bytes in the red box: they are all 41, which is the hex code for a capital "A" -- exactly what we added at the top of the file previously.
-- Change this to the magic number we found earlier for JPEG files: `FF D8 FF DB`
+- Change this to the magic number we found earlier for JPEG files: `FF D8 FF DB` you can find using `hexeditor <file_name>` 
 - Perfect. Now let's try uploading the modified shell and see if it bypasses the filter!
 
 
